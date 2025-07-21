@@ -61,3 +61,8 @@ img {
     padding: 14px;
     border-radius: 5px;
 }
+.emptyCartImage {
+    height: 80px;
+    /* transform: translateX(400%); */
+    transform: translate3d(400%, 250%, 0);
+}

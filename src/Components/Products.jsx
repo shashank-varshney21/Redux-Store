@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { add } from '../Store/cartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../Store/productSlice';
 
 const Products = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const { data:products, status } = useSelector(state => state.product);
+  // const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchedProducts = async () => {
-      try {
-        const res = await fetch('https://fakestoreapi.com/products');
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        console.log(data);
-        setProducts(data);
-      } catch (error) {
-        console.error('Fetch error:', error);
-      }
-    };
-    fetchedProducts();
+    dispatch(fetchProducts());
+    // const fetchedProducts = async () => {
+    //   try {
+    //     const res = await fetch('https://fakestoreapi.com/products');
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! status: ${res.status}`);
+    //     }
+    //     const data = await res.json();
+    //     console.log(data);
+    //     setProducts(data);
+    //   } catch (error) {
+    //     console.error('Fetch error:', error);
+    //   }
+    // };
+    // fetchedProducts();
   }, []);
 
   const HandleAdd = (product) => {
@@ -28,6 +31,12 @@ const Products = () => {
     alert(`${product.title} added to cart`);
   }
 
+  if (status === 'Loading') {
+    return <h2>Loading...</h2>;
+  }
+  if (status === 'Error') {
+    return <h2>Error fetching products</h2>;
+  }
   return (
     <div className='productsWrapper'>
       {

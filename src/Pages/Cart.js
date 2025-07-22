@@ -7,9 +7,8 @@ import { useDispatch } from 'react-redux';
 const Cart = () => {
   const products = useSelector((state) => state.cart);
   const dispatch = useDispatch ();
-  const HandleRemove = (product) => {
-    dispatch(remove(product.id));
-    alert(`${product.title} removed from cart`);
+  const HandleRemove = (productID) => {
+    dispatch(remove(productID));
   }
   return (
     products.length === 0 ? (
@@ -21,7 +20,7 @@ const Cart = () => {
             <img src={product.image} alt={product.title} />
             <h4>{product.title}</h4>
             <h5>Price: ${product.price}</h5>
-            <button onClick={() => {HandleRemove(product)}} className='btn'>Remove from Cart</button>
+            <button onClick={() => {HandleRemove(product.id)}} className='btn'>Remove from Cart</button>
           </div>
         ))}
       </div>

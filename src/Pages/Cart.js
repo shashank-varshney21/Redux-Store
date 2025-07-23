@@ -47,7 +47,7 @@ const Cart = () => {
               className="
           bg-red-500 hover:bg-red-600 text-white font-medium 
           px-4 py-2 rounded-md transition-colors duration-200 
-          mx-auto md:mx-0
+          mx-auto md:mx-0 cursor-pointer
         "
             >
               Remove from Cart

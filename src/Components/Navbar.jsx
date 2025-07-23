@@ -31,35 +31,54 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Cart Count */}
-          <div className="hidden sm:flex items-center">
+          {/* Mobile view: Hamburger first, then Cart */}
+          <div className="flex items-center space-x-4 sm:hidden">
+            {/* Hamburger Button (mobile) */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isOpen ? (
+                  // X icon
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  // Hamburger icon
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+
+            {/* Cart Count (mobile visible) */}
+            <Link to="/cart">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-700">
+                🛒 {items.length} items
+              </span>
+            </Link>
+          </div>
+
+          {/* Cart Count for Desktop */}
+          <Link to="/cart" className="hidden sm:flex items-center">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-700">
               🛒 {items.length} items
             </span>
-          </div>
-
-          {/* Hamburger Button (mobile) */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="sm:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-          >
-            {/* Icon */}
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {isOpen ? (
-                // X icon
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                // Hamburger icon
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -80,9 +99,6 @@ const Navbar = () => {
           >
             Cart
           </Link>
-          <span className="block px-3 py-2 text-sm font-medium bg-indigo-100 text-indigo-700 rounded-md">
-            🛒 {items.length} items
-          </span>
         </div>
       )}
     </nav>
